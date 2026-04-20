@@ -1,3 +1,163 @@
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzkhTL6mNUasWc8mbDf_O7-AE5wuWBzEFtJmRIHdS_bnAGPq1x3TOB1M6693RUUxkGA/exec";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cultura de Inovação 2026 — Questionário</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f0f2f5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:16px}
+.phone-wrap{background:#fff;border-radius:16px;overflow:hidden;width:100%;max-width:440px;box-shadow:0 4px 24px rgba(0,0,0,0.12)}
+.phone-bar{background:#075E54;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.avatar{width:42px;height:42px;border-radius:50%;background:#0b3d30;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.bar-name{font-size:15px;font-weight:600;color:#fff}
+.bar-sub{font-size:12px;color:#b2dfdb;margin-top:1px}
+.chat-area{background:#e5ddd5;padding:14px 12px;min-height:420px;max-height:65vh;overflow-y:auto;display:flex;flex-direction:column;gap:9px}
+.bubble-bot{background:#fff;border-radius:0 12px 12px 12px;padding:10px 14px;max-width:86%;align-self:flex-start;font-size:14px;color:#111;line-height:1.6;word-break:break-word}
+.bubble-user{background:#dcf8c6;border-radius:12px 0 12px 12px;padding:10px 14px;max-width:86%;align-self:flex-end;font-size:14px;color:#111;line-height:1.6;word-break:break-word}
+.time{font-size:11px;color:#999;text-align:right;margin-top:4px}
+.options-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px;align-self:flex-start;max-width:92%}
+.opt-btn{font-size:13px;padding:7px 15px;border-radius:20px;cursor:pointer;background:#fff;border:1.5px solid #25D366;color:#075E54;font-weight:500;transition:background .15s}
+.opt-btn:hover{background:#e8fdf0}
+.opt-btn:disabled{opacity:.45;cursor:default}
+.input-row{background:#f0f0f0;padding:10px 12px;display:flex;gap:8px;align-items:center}
+.input-row input{flex:1;border-radius:22px;padding:9px 16px;font-size:14px;border:1px solid #ddd;background:#fff;color:#111;outline:none}
+.input-row input:focus{border-color:#25D366}
+.send-btn{width:40px;height:40px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.send-btn:hover{background:#1da851}
+.send-btn svg{width:17px;height:17px;fill:#fff}
+.typing{display:flex;gap:5px;align-items:center;padding:11px 14px;background:#fff;border-radius:0 12px 12px 12px;width:fit-content;align-self:flex-start}
+.dot{width:8px;height:8px;border-radius:50%;background:#aaa;animation:blink 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.saved-bar{background:#e8fdf0;color:#075E54;font-size:13px;text-align:center;padding:9px 12px;display:none;font-weight:500}
+.footer{font-size:12px;color:#aaa;text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
 
-// other contents of the file...
+<div class="phone-wrap">
+  <div class="phone-bar">
+    <div class="avatar">
+      <svg width="42" height="42" viewBox="0 0 38 38" fill="none">
+        <circle cx="19" cy="19" r="19" fill="#0b3d30"/>
+        <circle cx="19" cy="19" r="3.5" fill="#25D366"/>
+        <circle cx="19" cy="8"  r="2.5" fill="rgba(255,255,255,0.55)"/>
+        <circle cx="19" cy="30" r="2.5" fill="rgba(255,255,255,0.55)"/>
+        <circle cx="8"  cy="19" r="2.5" fill="rgba(255,255,255,0.55)"/>
+        <circle cx="30" cy="19" r="2.5" fill="rgba(255,255,255,0.55)"/>
+        <circle cx="11" cy="11" r="2"   fill="rgba(255,255,255,0.3)"/>
+        <circle cx="27" cy="11" r="2"   fill="rgba(255,255,255,0.3)"/>
+        <circle cx="11" cy="27" r="2"   fill="rgba(255,255,255,0.3)"/>
+        <circle cx="27" cy="27" r="2"   fill="rgba(255,255,255,0.3)"/>
+        <line x1="19" y1="15.5" x2="19" y2="10.5"  stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <line x1="19" y1="22.5" x2="19" y2="27.5"  stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <line x1="15.5" y1="19" x2="10.5" y2="19"  stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <line x1="22.5" y1="19" x2="27.5" y2="19"  stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <line x1="16.5" y1="16.5" x2="13" y2="13"  stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <line x1="21.5" y1="16.5" x2="25" y2="13"  stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <line x1="16.5" y1="21.5" x2="13" y2="25"  stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <line x1="21.5" y1="21.5" x2="25" y2="25"  stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <circle cx="31" cy="8" r="3" fill="#25D366" opacity="0.9"/>
+        <line x1="29" y1="10" x2="27" y2="11" stroke="#25D366" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+        <path d="M31 5 Q34 2 36 5" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <div class="bar-name">Cultura de Inovação</div>
+      <div class="bar-sub">Módulo Intensivo 2026</div>
+    </div>
+  </div>
+
+  <div class="chat-area" id="chat"></div>
+
+  <div class="input-row">
+    <input type="text" id="user-input" placeholder="Digite sua resposta..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+    <button class="send-btn" onclick="sendMsg()">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <div class="saved-bar" id="saved-bar">Respostas enviadas para a planilha da turma!</div>
+</div>
+<div class="footer">Cultura de Inovação · Módulo Intensivo 2026</div>
+
+<script>
+// ⚠️ SUBSTITUA PELA URL DO SEU APPS SCRIPT APÓS PUBLICAR
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxspI-YboaQOpQgKzorG0DGZoc6gUFTLegtRrJqyl8uXO3nhrp3sfpeHPY2mjFLfXf8/exec';
+
+const flow=[
+  {key:null,msgs:["Oi! Que bom ter você aqui 👋","Sou o assistente do módulo Cultura de Inovação e vou fazer algumas perguntinhas rápidas antes do nosso encontro.","Vai levar só uns 2 minutinhos, prometo! 😊","Vamos lá?"],next:{type:"options",options:["Vamos!","Ok, pode começar"],jump:1}},
+  {key:"area",msgs:["Ótimo! Primeiro, qual é sua área de atuação no ensino superior?"],next:{type:"options",options:["Exatas / Tecnologia","Humanas / Sociais","Saúde / Biológicas","Outra área"],jump:2}},
+  {key:"tempo",msgs:["Legal! E há quantos anos você atua como docente?"],next:{type:"options",options:["Menos de 3 anos","3 a 10 anos","Mais de 10 anos"],jump:3}},
+  {key:"palavra",msgs:["Agora uma pergunta mais reflexiva 😉","Quando você ouve a palavra inovação, qual é a primeira coisa que vem à sua cabeça?","Pode escrever livremente — não tem resposta certa!"],next:{type:"text",placeholder:"Ex: tecnologia, mudança, medo...",jump:4}},
+  {key:"desafio",msgs:["Adorei sua resposta! 🙌","Na sua opinião, qual é o maior desafio para inovar em sala de aula?"],next:{type:"options",options:["Falta de tempo","Resistência dos alunos","Falta de apoio institucional","Insegurança pessoal","Outro"],jump:5}},
+  {key:"expectativa",msgs:["Entendo muito bem esse desafio!","E o que você espera levar desse módulo intensivo?","Escreve aí com suas próprias palavras:"],next:{type:"text",placeholder:"Minha expectativa é...",jump:6}},
+  {key:"perfil",msgs:["Perfeito! Última pergunta, juro 😄","Como você se descreveria hoje em relação à inovação na sua prática docente?"],next:{type:"options",options:["Iniciante curioso","Já experimento algumas coisas","Tenho bastante experiência","Me considero um inovador"],jump:7}},
+  {key:null,msgs:["Isso é tudo! Muito obrigado pelas respostas 🎉","Suas respostas foram enviadas para a planilha da turma e vão ajudar o facilitador a adaptar o módulo ao perfil do grupo.","Nos vemos no dia do encontro. Até lá! 👋😊"],next:null}
+];
+
+let step=0,typing=false,currentAnswers={};
+
+function getTime(){const n=new Date();return n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0')}
+
+function addBubble(text,who){
+  return new Promise(res=>{setTimeout(()=>{
+    const chat=document.getElementById('chat');
+    const b=document.createElement('div');
+    b.className=who==='bot'?'bubble-bot':'bubble-user';
+    b.innerHTML=text+'<div class="time">'+getTime()+'</div>';
+    chat.appendChild(b);chat.scrollTop=chat.scrollHeight;res();
+  },0);});
+}
+
+function showTyping(){const c=document.getElementById('chat');const t=document.createElement('div');t.className='typing';t.id='typ';t.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';c.appendChild(t);c.scrollTop=c.scrollHeight;}
+function removeTyping(){const t=document.getElementById('typ');if(t)t.remove();}
+function saveAnswer(key,val){if(key)currentAnswers[key]=val;}
+
+async function saveAll(){
+  try{
+    await fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(currentAnswers)
+    });
+    document.getElementById('saved-bar').style.display='block';
+  }catch(e){
+    console.error('Erro ao enviar:',e);
+    document.getElementById('saved-bar').textContent='Respostas salvas localmente.';
+    document.getElementById('saved-bar').style.display='block';
+  }
+}
+
+async function runStep(s){
+  if(s>=flow.length)return;
+  const node=flow[s];typing=true;disableInput(true);
+  for(let i=0;i<node.msgs.length;i++){showTyping();await new Promise(r=>setTimeout(r,700+node.msgs[i].length*17));removeTyping();await addBubble(node.msgs[i],'bot');}
+  typing=false;
+  if(!node.next){await saveAll();disableInput(true);return;}
+  if(node.next.type==='options')showOptions(node.next.options,node.next.jump,node.key);
+  else{const inp=document.getElementById('user-input');inp.placeholder=node.next.placeholder||'Digite sua resposta...';disableInput(false);inp.focus();}
+}
+
+function showOptions(opts,jump,key){
+  const c=document.getElementById('chat');const wrap=document.createElement('div');wrap.className='options-row';
+  opts.forEach(o=>{const btn=document.createElement('button');btn.className='opt-btn';btn.textContent=o;
+    btn.onclick=async()=>{document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);saveAnswer(key,o);await addBubble(o,'user');step=jump;await runStep(step);};
+    wrap.appendChild(btn);});
+  c.appendChild(wrap);c.scrollTop=c.scrollHeight;
+}
+
+function disableInput(val){const inp=document.getElementById('user-input');inp.disabled=val;if(val)inp.placeholder='Aguarde...';}
+
+async function sendMsg(){
+  if(typing)return;const inp=document.getElementById('user-input');const val=inp.value.trim();if(!val)return;
+  inp.value='';saveAnswer(flow[step].key,val);await addBubble(val,'user');disableInput(true);
+  const jump=flow[step].next?flow[step].next.jump:step+1;step=jump;await runStep(step);
+}
+
+runStep(0);
+</script>
+</body>
+</html>
